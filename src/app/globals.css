@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================ */
+/* PrivateSocial — Design Tokens (fonte: Admin/styles.css)             */
+/* ================================================================ */
+
+:root {
+  /* Fundo — preto profundo em camadas */
+  --bg-0: #0a0706;
+  --bg-1: #120d0a;
+  --bg-2: #1a1310;
+  --bg-3: #241912;
+  --bg-card: rgba(26, 19, 16, 0.72);
+  --bg-card-elevated: #1f1712;
+
+  /* Dourado metálico */
+  --gold-50: oklch(0.97 0.03 80);
+  --gold-100: oklch(0.93 0.05 78);
+  --gold-300: oklch(0.87 0.08 78);
+  --gold-400: oklch(0.82 0.09 76);
+  --gold-500: oklch(0.75 0.10 72);
+  --gold-600: oklch(0.65 0.10 68);
+  --gold-700: oklch(0.52 0.09 62);
+
+  --accent: var(--gold-400);
+  --accent-soft: var(--gold-600);
+
+  /* Acento rosé (hearts / CTAs de desejo) */
+  --rose-400: oklch(0.72 0.13 25);
+  --rose-500: oklch(0.62 0.17 22);
+
+  /* Texto em hierarquia */
+  --text-0: oklch(0.98 0.01 80);
+  --text-1: oklch(0.88 0.02 80);
+  --text-2: oklch(0.68 0.03 75);
+  --text-3: oklch(0.48 0.03 70);
+
+  /* Linhas/bordas douradas translúcidas */
+  --line: rgba(212, 175, 110, 0.12);
+  --line-strong: rgba(212, 175, 110, 0.22);
+
+  /* Radii */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+
+  /* Gradientes e glows */
+  --shine-gold: linear-gradient(135deg, #f5e6c8 0%, #e4c89a 40%, #c9a775 70%, #e4c89a 100%);
+  --glow-gold: 0 0 40px rgba(212, 175, 110, 0.35), 0 0 80px rgba(212, 175, 110, 0.15);
+
+  /* Fontes — aplicadas via next/font no layout.tsx */
+  --font-display: var(--font-cormorant), 'Playfair Display', Georgia, serif;
+  --font-ui: var(--font-inter), -apple-system, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --shimmer-strength: 1;
+}
+
+/* ================================================================ */
+/* Base                                                              */
+/* ================================================================ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-ui);
+  background: var(--bg-0);
+  color: var(--text-0);
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+/* Scrollbar oculta (opt-in via .scroll) */
+.scroll { -ms-overflow-style: none; scrollbar-width: none; }
+.scroll::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ================================================================ */
+/* Utilities personalizadas                                           */
+/* ================================================================ */
+
+.display { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; }
+.ui { font-family: var(--font-ui); }
+.mono { font-family: var(--font-mono); }
+
+.gold-text {
+  background: var(--shine-gold);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-gold {
+  background: var(--shine-gold);
+  color: #1a0f05;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-weight: 600;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow:
+    0 10px 30px rgba(212, 175, 110, calc(0.25 * var(--shimmer-strength))),
+    inset 0 1px 0 rgba(255, 240, 200, 0.6);
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.btn-gold:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px rgba(212, 175, 110, calc(0.35 * var(--shimmer-strength)));
+}
+.btn-gold:active:not(:disabled) { transform: translateY(0); }
+.btn-gold:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-1);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 13px 22px;
+  font-weight: 500;
+  font-family: var(--font-ui);
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-ghost:hover { background: rgba(212, 175, 110, 0.08); border-color: var(--gold-500); }
+
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(212, 175, 110, 0.1);
+  border: 1px solid var(--line);
+  color: var(--text-1);
+  font-size: 12px;
+  font-weight: 500;
+  font-family: var(--font-ui);
+}
+
+.chip.gold {
+  background: linear-gradient(135deg, rgba(247, 229, 176, 0.2), rgba(212, 175, 110, 0.1));
+  border-color: var(--gold-500);
+  color: var(--gold-100);
+}
+
+.input-field {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(26, 19, 16, 0.6);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-md);
+  color: var(--text-0);
+  font-family: var(--font-ui);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.input-field::placeholder { color: var(--text-3); }
+.input-field:focus {
+  border-color: var(--gold-500);
+  background: rgba(26, 19, 16, 0.9);
+}
+
+/* Starfield decorativo */
+.starry {
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(247, 229, 176, 0.5), transparent 50%),
+    radial-gradient(1px 1px at 80% 20%, rgba(247, 229, 176, 0.4), transparent 50%),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(247, 229, 176, 0.45), transparent 50%),
+    radial-gradient(1px 1px at 65% 85%, rgba(247, 229, 176, 0.35), transparent 50%),
+    radial-gradient(1px 1px at 15% 60%, rgba(247, 229, 176, 0.3), transparent 50%),
+    radial-gradient(1.5px 1.5px at 90% 55%, rgba(247, 229, 176, 0.4), transparent 50%);
+}
+
+/* Animações */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--gold-600) 0%,
+    var(--gold-300) 50%,
+    var(--gold-600) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer calc(3s / var(--shimmer-strength)) linear infinite;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.4s ease both; }
+
+@keyframes skel-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.skel {
+  background: var(--bg-2);
+  border-radius: 10px;
+  animation: skel-pulse 1.6s ease-in-out infinite;
+}
+
+/* ================================================================ */
+/* Anti-download — dificulta salvar foto/video de user content       */
+/*                                                                    */
+/* Bug reportado em 29/04/26: usuários estavam baixando stories e    */
+/* fotos. Watermark não basta — precisa também desativar context     */
+/* menu (clique direito + long-press iOS), drag e seleção.           */
+/*                                                                    */
+/* Aplicar a TODA <img>/<video> que mostra conteúdo de user. Não     */
+/* aplicar em ícones do app, logos, fotos de avatares de UI.         */
+/*                                                                    */
+/* Não bloqueia 100% (DevTools, screenshot impossível), mas elimina  */
+/* o caminho fácil que 99% dos users tentam: long-press → Salvar.    */
+/*                                                                    */
+/* O JSX também precisa de:                                          */
+/*   onContextMenu={(e) => e.preventDefault()}                       */
+/*   draggable={false}                                                */
+/* (CSS sozinho não bloqueia context menu em todos os browsers)      */
+/* ================================================================ */
+.no-save {
+  -webkit-touch-callout: none !important; /* iOS Safari long-press menu */
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
